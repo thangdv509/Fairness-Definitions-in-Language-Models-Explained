@@ -50,8 +50,6 @@ pleasant_3 = [ 'caress', 'freedom', 'health', 'love', 'peace', 'cheer', 'friend'
 unpleasant_3 = ['abuse', 'crash', 'filth', 'murder', 'sickness', 'accident', 'death', 'grief', 'poison', 'stink', 'assault', 'disaster', 
 'hatred', 'pollute', 'tragedy', 'bomb', 'divorce', 'jail', 'poverty', 'ugly', 'cancer', 'evil', 'kill', 'rotten', 'vomit'] 
 
-weat2 = instruments + weapons + pleasant + unpleasant
-weat3 = european_3 + african_3 + pleasant_3 + unpleasant_3
 # bomb, evil in 3 not in 1, agony prison in 1 not in 3. #pleasant 3 = pleasant 1
 
 #weat 4
@@ -154,7 +152,7 @@ weat_groups = [
     [african_female,european_male,af_bias,em_bias_foraf], #af-inter
     [african_female,european_male,af_unique_bias,em_unique_bias_foraf], #af-emerg
     [mexican_female,european_male,lf_bias,em_bias_forlf],#lf-inter
-    [mexican_female,european_male,lf_unique_bias,em_unique_bias_forlf]# lf-emerg
+    [mexican_female,european_male,lf_unique_bias,00]# lf-emerg
 ]
 
 
