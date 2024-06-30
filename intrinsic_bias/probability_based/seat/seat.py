@@ -1,4 +1,4 @@
-''' Implements the WEAT tests '''
+''' Implements the SEAT tests '''
 import logging as log
 import math
 import itertools as it
@@ -40,10 +40,10 @@ def s_wAB(A, B, cossims):
 def s_XAB(X, s_wAB_memo):
     r"""
     Given indices of target concept X and precomputed s_wAB values,
-    return slightly more computationally efficient version of WEAT
+    return slightly more computationally efficient version of SEAT
     statistic for p-value computation.
 
-    Caliskan defines the WEAT statistic s(X, Y, A, B) as
+    Caliskan defines the SEAT statistic s(X, Y, A, B) as
         sum_{x in X} s(x, A, B) - sum_{y in Y} s(y, A, B)
     where s(w, A, B) is defined as
         mean_{a in A} cos(w, a) - mean_{b in B} cos(w, b).
@@ -74,7 +74,7 @@ def s_XAB(X, s_wAB_memo):
 def s_XYAB(X, Y, s_wAB_memo):
     r"""
     Given indices of target concept X and precomputed s_wAB values,
-    the WEAT test statistic for p-value computation.
+    the SEAT test statistic for p-value computation.
     """
     return s_XAB(X, s_wAB_memo) - s_XAB(Y, s_wAB_memo)
 
@@ -201,7 +201,7 @@ def convert_keys_to_ints(X, Y):
 
 
 def run_test(encs, n_samples, parametric=False):
-    ''' Run a WEAT.
+    ''' Run a SEAT.
     args:
         - encs (Dict[str: Dict]): dictionary mapping targ1, targ2, attr1, attr2
             to dictionaries containing the category and the encodings
