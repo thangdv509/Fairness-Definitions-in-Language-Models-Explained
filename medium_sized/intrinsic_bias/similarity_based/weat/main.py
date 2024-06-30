@@ -1,11 +1,11 @@
 import glob
 from models.bert import *
-from intrinsic_bias.probability_based.seat import seat
-from intrinsic_bias.probability_based.seat.data import  load_json
+from medium_sized.intrinsic_bias.similarity_based.weat import weat
+from medium_sized.intrinsic_bias.similarity_based.weat.data import  load_json
 
 def run_experiment():
   BERT = BERT()
-  list_test_json = glob.glob("../../../../data/seat/*")
+  list_test_json = glob.glob("../../../../data/weat/*")
   for test_json in list_test_json:
     encs = load_json(test_json)
 
@@ -18,6 +18,6 @@ def run_experiment():
     encs["targ2"]["encs"] = encs_targ2
     encs["attr1"]["encs"] = encs_attr1
     encs["attr2"]["encs"] = encs_attr2
-    seat.run_test(encs, n_samples=10000)
+    weat.run_test(encs, n_samples=10000)
     
     print("-------------------------------------------------------------")

@@ -10,3 +10,6 @@ logging
 h5py
 pickle
 scikit-learn
+pandas
+re
+typing

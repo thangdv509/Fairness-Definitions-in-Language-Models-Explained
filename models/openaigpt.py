@@ -1,8 +1,8 @@
 from openai import OpenAI
 
 class OpenAIGPT:
-    def __init__(self, api_key):
-        self.client = OpenAI(api_key=api_key)
+    def __init__(self):
+        self.client = OpenAI(api_key="")
 
     def ask(self, message): 
         completion = self.client.chat.completions.create( 

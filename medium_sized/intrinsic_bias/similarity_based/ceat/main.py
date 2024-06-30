@@ -1,8 +1,8 @@
 import numpy as np
 import datetime
 import os
-from intrinsic_bias.probability_based.ceat.ceat import *
-from intrinsic_bias.probability_based.ceat.generate_ebd_bert import *
+from medium_sized.intrinsic_bias.similarity_based.ceat.ceat import *
+from medium_sized.intrinsic_bias.similarity_based.ceat.generate_ebd_bert import *
 
 def run_experiment():
     if not os.path.exists("./bertweat1.pickle"):

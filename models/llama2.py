@@ -1,9 +1,9 @@
 from openai import OpenAI
 
 class Llama2:
-  def __init__ (self, TOGETHER_API_KEY):
+  def __init__ (self):
       self.client = OpenAI(
-        api_key=TOGETHER_API_KEY,
+        api_key="",
         base_url='https://api.together.xyz/v1',
       )
 
