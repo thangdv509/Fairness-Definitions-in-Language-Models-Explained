@@ -1,4 +1,5 @@
 from openai import OpenAI
+from tqdm import tqdm
 
 class OpenAIGPT:
     def __init__(self):
@@ -11,3 +12,9 @@ class OpenAIGPT:
             )
         ans = completion.choices[0].message.content.strip()
         return ans
+    
+    def batch_ask(self, requests):
+        reply_list = []
+        for request in tqdm(requests):
+            reply_list.append(self.ask(request))
+        return reply_list

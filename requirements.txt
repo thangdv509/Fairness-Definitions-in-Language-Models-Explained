@@ -13,3 +13,5 @@ scikit-learn
 pandas
 re
 typing
+tenacity
+matplotlib
