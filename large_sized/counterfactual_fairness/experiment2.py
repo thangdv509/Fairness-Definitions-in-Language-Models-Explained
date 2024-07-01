@@ -28,7 +28,7 @@ def find_pairs_with_different_gender(data):
     return pairs
 
 def load_data():
-    file_path = '../../data/german_data_credit.csv'  
+    file_path = 'data/german_data_credit.csv'  
     data = []
     with open(file_path, 'r', newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)

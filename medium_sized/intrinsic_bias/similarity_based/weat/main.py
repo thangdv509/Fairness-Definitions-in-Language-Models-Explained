@@ -5,7 +5,7 @@ from medium_sized.intrinsic_bias.similarity_based.weat.data import  load_json
 
 def run_experiment():
   BERT = BERT()
-  list_test_json = glob.glob("../../../../data/weat/*")
+  list_test_json = glob.glob("data/weat/*")
   for test_json in list_test_json:
     encs = load_json(test_json)
 

@@ -5,7 +5,7 @@ from models.llama2 import *
 import numpy as np
 
 def load_data():
-    df = pd.read_csv("../../data/bias_annotation.csv")
+    df = pd.read_csv("data/bias_annotation.csv")
     bias_sentences = df[df["Labels"] == "Personality"]
 
     return bias_sentences

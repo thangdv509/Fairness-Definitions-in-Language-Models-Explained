@@ -10,7 +10,7 @@ import json
 
 from models.bert import *
 
-f = open('../../../../data/ceat/data.json')
+f = open('data/ceat/data.json')
 data = json.load(f)
 
 BERT = BERT()

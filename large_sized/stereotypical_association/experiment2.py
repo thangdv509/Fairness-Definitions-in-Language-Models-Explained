@@ -57,7 +57,7 @@ occupations=["homemaker", "nurse", "receptionist", "librarian", "socialite", "ha
             "maestro", "skipper", "protege", "philosopher", "captain", "architect", "financier", "warrior", "broadcaster", "magician", "pilot", "boss"]
 
 def load_data():
-    jsonl_file_path = '../../data/natural_questions.jsonl'
+    jsonl_file_path = 'data/natural_questions.jsonl'
 
     data = []
 

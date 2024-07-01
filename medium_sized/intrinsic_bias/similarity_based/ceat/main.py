@@ -8,7 +8,7 @@ def run_experiment():
     if not os.path.exists("./bertweat1.pickle"):
         generate()
 
-    f = open('../../../../data/ceat/data.json')
+    f = open('data/ceat/data.json')
     data = json.load(f)
 
     ceat_groups = [

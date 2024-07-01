@@ -14,7 +14,7 @@ from sklearn.metrics import f1_score
 from models.openaigpt import *
 
 def load_data():
-    df = pd.read_csv("../../data/german_data_credit.csv")
+    df = pd.read_csv("data/german_data_credit.csv")
 
     columns_to_map = ["checking-account", "savings-account", "employment-since"]
     for col in columns_to_map:
