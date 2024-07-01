@@ -16,5 +16,5 @@ class OpenAIGPT:
     def batch_ask(self, requests):
         reply_list = []
         for request in tqdm(requests):
-            reply_list.append(self.ask(request))
+            reply_list.append(self.ask([{"role": "user", "content": request}]))
         return reply_list
