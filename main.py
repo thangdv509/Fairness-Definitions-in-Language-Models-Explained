@@ -17,4 +17,8 @@ from large_sized.performance_disparities.experiment1 import main as pd_exp1
 from large_sized.performance_disparities.experiment2 import main as pd_exp2
 from large_sized.performance_disparities.experiment3 import main as pd_exp3
 
-pd_exp1.run_experiment()
+from large_sized.counterfactual_fairness.experiment1 import main as cf_exp1
+from large_sized.counterfactual_fairness.experiment2 import main as cf_exp2
+
+
+cf_exp2.run_experiment()

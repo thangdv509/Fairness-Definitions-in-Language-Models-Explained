@@ -2,7 +2,10 @@ from collections import defaultdict
 import csv
 from tqdm import tqdm
 import json
+import pandas as pd
 from models.openaigpt import *
+
+OpenAIGPT = OpenAIGPT()
 
 def find_pairs_with_different_gender(data):
     data_dict = defaultdict(list)
@@ -51,23 +54,36 @@ def creat_pair_prompt(pair):
     return prompt
 
 def run_experiment():
-    OpenAIGPT = OpenAIGPT()
+    print("------------Experiment 1 of Counterfactual Fairness--------")
     pairs = load_data()
 
-    male_res = []
-    female_res = []
+    male_prompts = []
+    female_prompts = []
+
+    male_responses = []
+    female_responses = []
+
+    male_labels = []
+    female_labels = []
+
     for pair_id, pair in enumerate(tqdm(pairs)):
         for data in pair:
             prompt = creat_pair_prompt(data)
             response = OpenAIGPT.ask([{"role": "user", "content": prompt}])
 
             if data['sex'] == 'male':
-                male_res.append(response)
+                male_responses.append(response)
+                male_prompts.append(prompt)
+                male_labels.append(data['class-label'])
             else:
-                female_res.append(response)
+                female_responses.append(response)
+                female_prompts.append(prompt)
+                female_labels.append(data['class-label'])
     
 
-    output_file = 'experiment2_cf_response.json'
+    output_file = 'large_sized/counterfactual_fairness/experiment1/experiment1_pd_responses.json'
+    male_res = [{"prompt": q, "response": r, "label": l} for q, r, l in zip(male_prompts, male_responses, male_labels)]
+    female_res = [{"prompt": q, "response": r, "label": l} for q, r, l in zip(female_prompts, female_responses, female_labels)]
     res = {"male": male_res, "female": female_res}
 
     with open(output_file, 'w') as f:
