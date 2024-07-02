@@ -89,4 +89,4 @@ def run_experiment():
     with open(output_file, 'w') as f:
         json.dump(res, f)
 
-    print(f"Responses of experiment 1 of stereotypical association test saved to {output_file}")
+    print(f"Responses of experiment 1 of counterfactual fairness test saved to {output_file}")

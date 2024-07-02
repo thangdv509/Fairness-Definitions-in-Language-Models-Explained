@@ -347,5 +347,5 @@ def run_experiment():
     output_accuracy_file = 'large_sized/counterfactual_fairness/experiment2/experiment1_cf_accuracy_result.csv'
     fair_result_df.to_csv(output_fairness_file, index=False)
     acc_result_df.to_csv(output_accuracy_file, index=False)
-    print(f"Responses of experiment 1 of stereotypical association test saved to {output_fairness_file} and {output_accuracy_file}.")
+    print(f"Responses of experiment 1 of counterfactual fairness test saved to {output_fairness_file} and {output_accuracy_file}.")
     
