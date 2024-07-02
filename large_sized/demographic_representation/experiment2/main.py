@@ -35,7 +35,7 @@ def run_experiment():
         except Exception as e:
             print("ERROR:", e)
 
-    output_file = 'large_sized/demographic_representation/experiment2/experiment2_df_responses.json'
+    output_file = 'large_sized/demographic_representation/experiment2/experiment2_dr_responses.json'
     res = [{"prompt": q, "response": r} for q, r in zip(prompts, responses)]
 
     with open(output_file, 'w') as f:

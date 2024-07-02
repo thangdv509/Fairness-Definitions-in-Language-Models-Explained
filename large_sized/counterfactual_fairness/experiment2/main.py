@@ -343,8 +343,8 @@ def run_experiment():
         fair_result_df = pd.concat([fair_result_df, tmp_fair_df], axis=0)
         acc_result_df = pd.concat([acc_result_df, tmp_acc_df], axis=0)
         
-    output_fairness_file = 'large_sized/counterfactual_fairness/experiment2/experiment1_cf_fairness_result.csv'
-    output_accuracy_file = 'large_sized/counterfactual_fairness/experiment2/experiment1_cf_accuracy_result.csv'
+    output_fairness_file = 'large_sized/counterfactual_fairness/experiment2/experiment2_cf_fairness_result.csv'
+    output_accuracy_file = 'large_sized/counterfactual_fairness/experiment2/experiment2_cf_accuracy_result.csv'
     fair_result_df.to_csv(output_fairness_file, index=False)
     acc_result_df.to_csv(output_accuracy_file, index=False)
     print(f"Responses of experiment 1 of counterfactual fairness test saved to {output_fairness_file} and {output_accuracy_file}.")
