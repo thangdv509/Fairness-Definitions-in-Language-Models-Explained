@@ -5,7 +5,8 @@ from medium_sized.intrinsic_bias.similarity_based.ceat.ceat import *
 from medium_sized.intrinsic_bias.similarity_based.ceat.generate_ebd_bert import *
 
 def run_experiment():
-    if not os.path.exists("./bertweat1.pickle"):
+    print("------------Medium-sized LMs: Intrinsic bias - Similarity_based bias - CEAT------------")
+    if not os.path.exists("data/ceat/bert_weat1.pickle"):
         generate()
 
     f = open('data/ceat/data.json')
@@ -48,4 +49,4 @@ def run_experiment():
     e_ary = np.array(e_lst)
     p_ary = np.array(p_lst)
 
-    np.savetxt("e_1000.csv", e_ary, delimiter=",")
+    np.savetxt("medium_sized/intrinsic_bias/similarity_based/ceat/result.csv", e_ary, delimiter=",")

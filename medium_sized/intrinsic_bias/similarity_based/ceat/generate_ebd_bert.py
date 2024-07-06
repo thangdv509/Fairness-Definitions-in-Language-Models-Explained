@@ -33,7 +33,7 @@ def short_sen(sen,wd):
 
 def bert(wd_lst,out_name):
     BERT = BERT_MODEL()
-    sen_dict = pickle.load(open('sen_dic_1.pickle','rb'))
+    sen_dict = pickle.load(open('data/ceat/sen_dic_1.pickle','rb'))
     wd_idx_dict = {wd:[] for wd in wd_lst}
     out_dict = {wd:[] for wd in wd_lst}
     for wd in wd_lst:
@@ -59,7 +59,7 @@ def bert(wd_lst,out_name):
             outputs = BERT.model(input_ids)
             exact_state_vector = outputs[0][0,int(exact_idx),:].cpu().detach().numpy()  
             out_dict[wd].append(exact_state_vector)
-    n = 'bert'+out_name+'.pickle'
+    n = 'data/ceat/bert_weat1.pickle'
     pickle.dump(out_dict,open(n,'wb'))
 
 def generate():
