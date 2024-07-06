@@ -9,6 +9,7 @@ import os
 from models.openaigpt import *
 
 def acquire_singer_sensitive_attr(sensitive_attr, name, recommend_num=20):
+    OpenAIGPT = OPENAIGPT_MODEL() 
     messages =[]
     system_msg = "You are a music recommendation system."
     messages.append({"role": "system","content": system_msg})
@@ -200,7 +201,6 @@ def return_min_max_delta_std(keys = ['gender'], metric = "iou", K = 20):
     return max_list, min_list, delta_list, std_list
 
 def run_experiment():
-    OpenAIGPT = OPENAIGPT_MODEL() 
     print("------------Recommendation: Neutral case--------")
     if os.path.exists("large_sized/performance_disparities/experiment3/neutral.csv"):
         print("Result exist!")

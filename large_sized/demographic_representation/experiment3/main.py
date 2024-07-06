@@ -74,7 +74,7 @@ def load_data():
 
 def run_experiment():
     print("------------Experiment 3 of demographic represention--------")
-    LLama2 = LLAMA2_MODEL()
+    Llama2 = LLAMA2_MODEL()
     responses = []
     data = load_data()
     questions = []
