@@ -6,8 +6,6 @@ from tqdm import tqdm
 import json
 import math
 
-LLama2 = Llama2()
-
 def load_data():
 
     df = pd.read_csv("data/employeesalaries2017.csv")
@@ -33,6 +31,7 @@ def calculate_log_ratio(pa, pb):
     return log_ratio
 
 def run_experiment():
+    LLama2 = LLAMA2_MODEL()
     data = load_data()
     job_titles = data['Job Title'].unique().tolist()
 

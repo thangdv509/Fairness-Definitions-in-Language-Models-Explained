@@ -5,9 +5,6 @@ from models.llama2 import *
 import numpy as np
 import json
 
-OpenAIGPT = OpenAIGPT()
-Llama2 = Llama2()
-
 def load_data():
     df = pd.read_csv("data/bias_annotation.csv")
     bias_sentences = df[df["Labels"] == "Personality"]
@@ -33,6 +30,8 @@ def compute_rbr(preferences):
 
 def run_experiment(): 
     print("------------Experiment 2 of Performace Disparities--------")
+    OpenAIGPT = OPENAIGPT_MODEL()
+    Llama2 = LLAMA2_MODEL()
 
     bias_sentences = load_data()
 

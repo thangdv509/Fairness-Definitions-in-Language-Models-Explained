@@ -5,7 +5,7 @@ from models.bert import *
 
 def run_experiment():
     df = load_data()
-    BERT=BERT()
+    BERT = BERT_MODEL()
 
     outcomes = []
     for p in df["Job Title cleaned"].unique().astype(np.str):

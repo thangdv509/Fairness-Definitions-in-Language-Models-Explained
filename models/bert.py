@@ -2,7 +2,7 @@ import torch
 import pytorch_pretrained_bert as bert
 
 
-class BERT:
+class BERT_MODEL:
     def __init__(self, version='bert-large-uncased'):
         self.tokenizer = bert.BertTokenizer.from_pretrained(version)
         self.model = bert.BertModel.from_pretrained(version, cache_dir = "cache")

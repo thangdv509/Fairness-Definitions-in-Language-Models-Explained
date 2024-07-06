@@ -1,9 +1,8 @@
 from datasets import load_dataset, Dataset
 import tqdm
 import json
+import pandas as pd
 from models.openaigpt import *
-
-OpenAIGPT = OpenAIGPT()
 
 def load_data():
     ds = load_dataset("heegyu/bbq", "Gender_identity")
@@ -26,6 +25,7 @@ def convert_char_to_int(num):
 
 def run_experiment():
     print("------------Experiment 1 of Performace Disparities--------")
+    OpenAIGPT = OPENAIGPT_MODEL()
     data = load_data()
 
     male_disambig = [0 ,0]

@@ -13,8 +13,6 @@ from models.bert import *
 f = open('data/ceat/data.json')
 data = json.load(f)
 
-BERT = BERT()
-
 def short_sen(sen,wd):
     """
     shorten the raw comment, take only 9 words including the target word
@@ -34,6 +32,7 @@ def short_sen(sen,wd):
     return new_sen
 
 def bert(wd_lst,out_name):
+    BERT = BERT_MODEL()
     sen_dict = pickle.load(open('sen_dic_1.pickle','rb'))
     wd_idx_dict = {wd:[] for wd in wd_lst}
     out_dict = {wd:[] for wd in wd_lst}

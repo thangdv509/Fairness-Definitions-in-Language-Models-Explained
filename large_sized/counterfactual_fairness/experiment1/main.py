@@ -5,8 +5,6 @@ import json
 import pandas as pd
 from models.openaigpt import *
 
-OpenAIGPT = OpenAIGPT()
-
 def find_pairs_with_different_gender(data):
     data_dict = defaultdict(list)
     for entry in data:
@@ -55,6 +53,7 @@ def creat_pair_prompt(pair):
 
 def run_experiment():
     print("------------Experiment 1 of Counterfactual Fairness--------")
+    OpenAIGPT = OPENAIGPT_MODEL()
     pairs = load_data()
 
     male_prompts = []

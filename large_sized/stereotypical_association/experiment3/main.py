@@ -3,11 +3,10 @@ from models.llama2 import *
 from models.openaigpt import *
 import json
 
-Llama2 = Llama2()
-OpenAIGPT = OpenAIGPT()
-
 def run_experiment():
     print("------------Experiment 3 of Stereotypical Association--------")
+    Llama2 = LLAMA2_MODEL()
+    OpenAIGPT = OPENAIGPT_MODEL()
 
     llama2_res = []
     gpt_res = []

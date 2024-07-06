@@ -3,8 +3,6 @@ from tqdm import tqdm
 import pandas as pd
 from models.llama2 import *
 
-Llama2 = Llama2()
-
 male_words = [
     "he", "his", "him", "man", "men", "spokesman", "himself", "son", 
     "father", "chairman", "husband", "guy", "boy", "boys", "brother", 
@@ -76,6 +74,7 @@ def load_data():
 
 def run_experiment():
     print("------------Experiment 2 of Stereotypical Association--------")
+    Llama2 = LLAMA2_MODEL()
     responses = []
     prompts = []
     data = load_data()

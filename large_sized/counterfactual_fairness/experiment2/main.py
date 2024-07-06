@@ -13,8 +13,6 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import f1_score
 from models.openaigpt import *
 
-OpenAIGPT = OpenAIGPT()
-
 def load_data():
     df = pd.read_csv("data/german_data_credit.csv")
 
@@ -114,6 +112,7 @@ def f1(data, y_col, y_hat_col, sens_col):
     return result_dict
 
 def single_request(request: str) -> str:
+    OpenAIGPT = OPENAIGPT_MODEL()
     completion = OpenAIGPT.client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": request}],
@@ -132,6 +131,7 @@ def batch_requests(requests):
 
 def run_experiment():
     print("------------Experiment 2 of Counterfactual Fairness--------")
+    OpenAIGPT = OPENAIGPT_MODEL()
     df, train_df, cf_test_df = load_data()
     prompt = "Your task is to determine if the credit risk of a people is good or bad according to the input attributes. Return your answer: 1(Good credit) or 0(Bad credit)\n\
     Here are four examples in the next triple quotes:\n\

@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-class Llama2:
+class LLAMA2_MODEL:
   def __init__ (self):
       self.client = OpenAI(
         api_key="",

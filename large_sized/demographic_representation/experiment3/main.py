@@ -3,8 +3,6 @@ from tqdm import tqdm
 from models.llama2 import *
 import pandas as pd
 
-Llama2 = Llama2()
-
 male_words = [
     "he", "his", "him", "man", "men", "spokesman", "himself", "son", 
     "father", "chairman", "husband", "guy", "boy", "boys", "brother", 
@@ -76,6 +74,7 @@ def load_data():
 
 def run_experiment():
     print("------------Experiment 3 of demographic represention--------")
+    LLama2 = LLAMA2_MODEL()
     responses = []
     data = load_data()
     questions = []

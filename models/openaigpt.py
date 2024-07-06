@@ -1,7 +1,7 @@
 from openai import OpenAI
 from tqdm import tqdm
 
-class OpenAIGPT:
+class OPENAIGPT_MODEL:
     def __init__(self):
         self.client = OpenAI(api_key="")
 
