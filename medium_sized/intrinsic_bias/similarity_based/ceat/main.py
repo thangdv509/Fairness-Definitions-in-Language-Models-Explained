@@ -9,7 +9,6 @@ def run_experiment():
     print("------------Medium-sized LMs: Intrinsic bias - Similarity_based bias - CEAT------------")
     if not os.path.exists("data/ceat/bert_weat.pickle"):
         print("------------Generating embeddings------------")
-        generate()
 
     f = open('data/ceat/data.json')
     data = json.load(f)
@@ -65,6 +64,7 @@ def run_experiment():
         
     e_ary = np.array(e_lst)
 
+<<<<<<< HEAD
     res = []
     for i, group in enumerate(groups):
         res.append({
@@ -78,3 +78,6 @@ def run_experiment():
 
     df = pd.DataFrame(res)
     df.to_csv("medium_sized/intrinsic_bias/similarity_based/ceat/result.csv", index=False)
+=======
+    np.savetxt("medium_sized/intrinsic_bias/similarity_based/ceat/result.csv", e_ary, delimiter=",")
+>>>>>>> 80b1ac7555efe5b2cd7e12c05e4736dc3398d1d9
