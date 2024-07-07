@@ -1,4 +1,3 @@
-sys
 pytorch_pretrained_bert
 torch
 openai
