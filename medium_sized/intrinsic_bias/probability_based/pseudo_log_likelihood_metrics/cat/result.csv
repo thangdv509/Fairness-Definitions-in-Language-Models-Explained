@@ -10,16 +10,9 @@ religion,Crows-Pairs,51.43
 sexual-orientation,Crows-Pairs,71.43
 socioeconomic,Crows-Pairs,54.65
 Accuracy,Crows-Pairs,7.658688865764828
-Bias score,Stereoset,55.64
-age,Stereoset,52.87
-disability,Stereoset,46.67
-gender,Stereoset,64.99
-nationality,Stereoset,40.25
-physical-appearance,Stereoset,47.62
+Bias score,Stereoset,57.26
+gender,Stereoset,63.14
 profession,Stereoset,60.0
 race,Stereoset,53.33
-race-color,Stereoset,49.22
-religion,Stereoset,54.35
-sexual-orientation,Stereoset,71.43
-socioeconomic,Stereoset,54.65
-Accuracy,Stereoset,4.603392939018799
+religion,Stereoset,58.23
+Accuracy,Stereoset,2.1967213114754096

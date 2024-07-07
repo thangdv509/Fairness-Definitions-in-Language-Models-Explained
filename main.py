@@ -10,6 +10,8 @@ from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics
 from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.cat import main as cat
 from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.cps import main as cps
 
+from medium_sized.extrinsic_bias.classification import main as classification
+
 
 from large_sized.demographic_representation.experiment1 import main as dr_exp1
 from large_sized.demographic_representation.experiment2 import main as dr_exp2
@@ -67,7 +69,8 @@ if sys.argv[1] == "medium":
             print_invalid_command()
 
     elif sys.argv[2] == "extrinsic":
-        pass
+        if sys.argv[3] == "classification":
+            classification.run_experiment()
     
     else:
         print_invalid_command()

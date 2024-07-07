@@ -8,7 +8,6 @@ def fill_mask_raw(sentence, tokenizer, model):
     with torch.no_grad():
         token_logits = model(input_seq, return_dict=True).logits
 
-    mask_token_index = torch.where(input_seq == tokenizer.mask_token_id)[1]
     results = []
     for i in torch.where(input_seq == tokenizer.mask_token_id)[1]:
         logits = token_logits[0, i.item(), :].squeeze()

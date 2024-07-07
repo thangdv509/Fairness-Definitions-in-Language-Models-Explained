@@ -31,18 +31,19 @@ def calculate_ppl(model, token_ids, log_softmax):
     return score, ranks
 
 def run_experiment():
+    print("------------Medium-sized LMs: Intrinsic bias - Probability-based bias - PPL------------")
     tokenizer, model = load_tokenizer_and_model()
-    total_score = 0
-    stereo_score = 0
-    log_softmax = torch.nn.LogSoftmax(dim=1)
-    count = defaultdict(int)
-    scores = defaultdict(int)
-    all_ranks = []
-    
+
     bias_score_list = []
     bias_type_list = []
     dataset_list = []
     for i in range(0, 2):
+        total_score = 0
+        stereo_score = 0
+        log_softmax = torch.nn.LogSoftmax(dim=1)
+        count = defaultdict(int)
+        scores = defaultdict(int)
+        all_ranks = []
         if i == 0:
             print("------------ PPL - Crows-Pairs Dataset------------")
             inputs = load_crows_pairs_dataset()

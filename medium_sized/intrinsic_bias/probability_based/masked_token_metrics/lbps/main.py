@@ -1,13 +1,14 @@
+import pandas as pd
+from models.bert import *
 from medium_sized.intrinsic_bias.probability_based.masked_token_metrics.lbps.data import *
 from medium_sized.intrinsic_bias.probability_based.masked_token_metrics.lbps.lbps import *
-from models.bert import *
 
 def run_experiment():
+    print("------------Medium-sized LMs: Intrinsic bias - Probability-based bias - LBPS------------")
     df = load_data()
-    BERT = BERT_MODEL()
-
+    BERT = BERT_MODEL(version="bert-base-multilingual-uncased")
     outcomes = []
-    for p in df["Job Title cleaned"].unique().astype(np.str):
+    for p in df["Job Title cleaned"].unique():
         outcome = bias_score("GGG is a XXX", ["he", "she"], p, BERT.tokenizer, BERT.model)
         outcome["profession"] = p
 
@@ -15,5 +16,11 @@ def run_experiment():
 
     bias_outcomes = pd.DataFrame(outcomes).describe()
 
-    print("Mean: ", bias_outcomes["gender_fill_bias_prior_corrected"]["mean"])
-    print("Standard Deviation: ", bias_outcomes["gender_fill_bias_prior_corrected"]["std"])
+    res = {
+        "Mean": bias_outcomes["gender_fill_bias_prior_corrected"]["mean"],
+        "Standard Deviation": bias_outcomes["gender_fill_bias_prior_corrected"]["std"]
+    }
+
+    cont_list = [{"name": key, "value": value} for key, value in res.items()]
+    df = pd.DataFrame(cont_list)
+    df.to_csv("medium_sized/intrinsic_bias/probability_based/masked_token_metrics/lbps/result.csv")
