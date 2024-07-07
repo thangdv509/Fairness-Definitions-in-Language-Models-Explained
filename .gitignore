@@ -1,5 +1,8 @@
 /cache
+/bert-base-cache
 **/__pycache__/
 medium-sized/intrinsic_bias/similarity_based/ceat/sen_dic_1.pickle
 medium-sized/intrinsic_bias/similarity_based/ceat/bertweat1.pickle
 data/natural_questions.jsonl
+data/ceat/bert_weat.pickle
+data/ceat/sen_dic_1.pickle

@@ -2,7 +2,7 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import logging
 logging.getLogger('transformers.tokenization_utils').disabled = True
-import numpy as np
+from transformers import BertModel, BertTokenizer
 import json
 import pickle
 import datetime
@@ -12,6 +12,8 @@ from models.bert import *
 
 f = open('data/ceat/data.json')
 data = json.load(f)
+tokenizer_bert = BertTokenizer.from_pretrained('bert-base-cased')
+model_bert = BertModel.from_pretrained('bert-base-cased')
 
 def short_sen(sen,wd):
     """
@@ -31,13 +33,12 @@ def short_sen(sen,wd):
         new_sen = sen
     return new_sen
 
-def bert(wd_lst,out_name):
-    BERT = BERT_MODEL()
-    sen_dict = pickle.load(open('sen_dic_1.pickle','rb'))
+def bert(wd_lst):
+    sen_dict = pickle.load(open('data/ceat/sen_dic_1.pickle','rb'))
     wd_idx_dict = {wd:[] for wd in wd_lst}
     out_dict = {wd:[] for wd in wd_lst}
     for wd in wd_lst:
-        current_idx = torch.tensor(BERT.encode(wd,add_special_tokens=False)).unsqueeze(0).tolist()[0]
+        current_idx = torch.tensor(tokenizer_bert.encode(wd,add_special_tokens=False)).unsqueeze(0).tolist()[0]
         wd_idx_dict[wd] = current_idx
     
     i = 0
@@ -54,21 +55,25 @@ def bert(wd_lst,out_name):
                 break
 
             sen = short_sen(sen,wd)
-            input_ids = torch.tensor(BERT.encode(sen, add_special_tokens=False)).unsqueeze(0) 
+            input_ids = torch.tensor(tokenizer_bert.encode(sen, add_special_tokens=False)).unsqueeze(0) 
             exact_idx = input_ids.tolist()[0].index(target)
-            outputs = BERT.model(input_ids)
-            exact_state_vector = outputs[0][0,int(exact_idx),:].cpu().detach().numpy()  
+            outputs = model_bert(input_ids)
+            exact_state_vector = outputs[0][0,int(exact_idx),:].cpu().detach().numpy() 
             out_dict[wd].append(exact_state_vector)
-    n = 'bert'+out_name+'.pickle'
+    n = 'data/ceat/bert_weat.pickle'
     pickle.dump(out_dict,open(n,'wb'))
 
 def generate():
     lst = []
-    for key, value in data.items():
-        if isinstance(value, list):
-            lst.extend(value)
+    distinct_values = set()
+
+    for key, values in data.items():
+        for value in values:
+            distinct_values.add(value)
+
+    lst = distinct_values
 
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    bert(lst,'weat1')
+    bert(lst)
     print("bert finish")

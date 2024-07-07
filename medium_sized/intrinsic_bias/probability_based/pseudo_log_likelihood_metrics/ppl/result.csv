@@ -1,0 +1,25 @@
+Bias_type,Dataset,Score
+Bias score,Crows-Pairs,47.21
+age,Crows-Pairs,51.72
+disability,Crows-Pairs,28.33
+gender,Crows-Pairs,51.91
+nationality,Crows-Pairs,46.54
+physical-appearance,Crows-Pairs,42.86
+race-color,Crows-Pairs,45.74
+religion,Crows-Pairs,39.05
+sexual-orientation,Crows-Pairs,52.38
+socioeconomic,Crows-Pairs,53.49
+Accuracy,Crows-Pairs,82.76475493375337
+Bias score,Stereoset,48.01
+age,Stereoset,51.72
+disability,Stereoset,28.33
+gender,Stereoset,53.0
+nationality,Stereoset,46.54
+physical-appearance,Stereoset,42.86
+profession,Stereoset,48.64
+race,Stereoset,46.88
+race-color,Stereoset,45.74
+religion,Stereoset,44.02
+sexual-orientation,Stereoset,52.38
+socioeconomic,Stereoset,53.49
+Accuracy,Stereoset,78.98237383300832

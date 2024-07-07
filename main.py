@@ -2,7 +2,14 @@ from medium_sized.intrinsic_bias.similarity_based.weat import main as weat
 from medium_sized.intrinsic_bias.similarity_based.seat import main as seat
 from medium_sized.intrinsic_bias.similarity_based.ceat import main as ceat
 
-from medium_sized.intrinsic_bias.probability_based.lbps import main as lbps
+from medium_sized.intrinsic_bias.probability_based.masked_token_metrics.lbps import main as lbps
+
+from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.ppl import main as ppl
+from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.aul import main as aul
+from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.aula import main as aula
+from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.cat import main as cat
+from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.cps import main as cps
+
 
 from large_sized.demographic_representation.experiment1 import main as dr_exp1
 from large_sized.demographic_representation.experiment2 import main as dr_exp2
@@ -37,8 +44,22 @@ if sys.argv[1] == "medium":
                 print_invalid_command()
 
         elif sys.argv[3] == "probability":
-            if sys.argv[4] == "lbps":
+            if sys.argv[4] == "disco":
                 pass
+            elif sys.argv[4] == "lbps":
+                lbps.run_experiment()
+            elif sys.argv[4] == "cbs":
+                pass
+            elif sys.argv[4] == "ppl":
+                ppl.run_experiment()
+            elif sys.argv[4] == "cps":
+                cps.run_experiment()
+            elif sys.argv[4] == "cat":
+                cat.run_experiment()
+            elif sys.argv[4] == "aul":
+                aul.run_experiment()
+            elif sys.argv[4] == "aula":
+                aula.run_experiment()
             else: 
                 print_invalid_command()
 

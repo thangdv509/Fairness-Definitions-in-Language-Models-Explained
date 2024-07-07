@@ -1,6 +1,5 @@
-
-from medium_sized.intrinsic_bias.probability_based.lbps.data import *
-from medium_sized.intrinsic_bias.probability_based.lbps.lbps import *
+from medium_sized.intrinsic_bias.probability_based.masked_token_metrics.lbps.data import *
+from medium_sized.intrinsic_bias.probability_based.masked_token_metrics.lbps.lbps import *
 from models.bert import *
 
 def run_experiment():

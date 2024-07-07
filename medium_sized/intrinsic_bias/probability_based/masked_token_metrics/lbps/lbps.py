@@ -1,7 +1,7 @@
 from typing import Iterable, Dict
 import torch
 import numpy as np
-from medium_sized.intrinsic_bias.probability_based.lbps.data import *
+from medium_sized.intrinsic_bias.probability_based.masked_token_metrics.lbps.data import *
 
 def fill_mask_raw(sentence, tokenizer, model):
     input_seq = tokenizer.encode(sentence, return_tensors="pt")

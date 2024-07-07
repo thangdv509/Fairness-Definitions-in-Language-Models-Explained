@@ -50,19 +50,17 @@ def p_value(X,Y,A,B,num=100):
     return p
 
 def ceat_meta(ceat_groups, test=1,N=10000):
-    nm = "bertweat1.pickle"
+    nm = "data/ceat/bert_weat.pickle"
     ceat_dict = pickle.load(open(nm,'rb'))
 
     e_lst = [] 
     v_lst = [] 
 
-    len_list = [len(ceat_groups[test-1][i]) for i in range(4)]
-
     for i in range(N):
-        X = np.array([ceat_groups[wd][np.random.randint(0,len(ceat_dict[wd]))] for wd in ceat_groups[test-1][0]])
-        Y = np.array([ceat_groups[wd][np.random.randint(0,len(ceat_dict[wd]))] for wd in ceat_groups[test-1][1]])
-        A = np.array([ceat_groups[wd][np.random.randint(0,len(ceat_dict[wd]))] for wd in ceat_groups[test-1][2]])
-        B = np.array([ceat_groups[wd][np.random.randint(0,len(ceat_dict[wd]))] for wd in ceat_groups[test-1][3]])
+        X = np.array([ceat_dict[wd][np.random.randint(0,len(ceat_dict[wd]))] for wd in ceat_groups[test-1][0]])
+        Y = np.array([ceat_dict[wd][np.random.randint(0,len(ceat_dict[wd]))] for wd in ceat_groups[test-1][1]])
+        A = np.array([ceat_dict[wd][np.random.randint(0,len(ceat_dict[wd]))] for wd in ceat_groups[test-1][2]])
+        B = np.array([ceat_dict[wd][np.random.randint(0,len(ceat_dict[wd]))] for wd in ceat_groups[test-1][3]])
         e,v = effect_size(X,Y,A,B)
         e_lst.append(e)
         v_lst.append(v)
