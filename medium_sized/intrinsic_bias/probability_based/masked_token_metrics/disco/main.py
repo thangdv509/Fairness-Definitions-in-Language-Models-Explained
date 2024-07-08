@@ -5,11 +5,6 @@ import numpy as np
 from medium_sized.intrinsic_bias.probability_based.masked_token_metrics.disco.data import *
 
 def run_experiment():
-    """
-    DisCo test.
-
-    https://arxiv.org/pdf/2010.06032.pdf
-    """
     print("------------Medium-sized LMs: Intrinsic bias - Probability-based bias - DisCo------------")
     tokenizer = BertTokenizer.from_pretrained('bert-base-cased')
     model = BertForMaskedLM.from_pretrained('bert-base-cased')

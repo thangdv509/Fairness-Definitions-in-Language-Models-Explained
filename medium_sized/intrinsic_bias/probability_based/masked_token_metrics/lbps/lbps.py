@@ -1,20 +1,18 @@
-from typing import Iterable, Dict
 import torch
 import numpy as np
-from medium_sized.intrinsic_bias.probability_based.masked_token_metrics.lbps.data import *
 
 def fill_mask_raw(sentence, tokenizer, model):
     input_seq = tokenizer.encode(sentence, return_tensors="pt")
     with torch.no_grad():
         token_logits = model(input_seq, return_dict=True).logits
 
+    mask_token_index = torch.where(input_seq == tokenizer.mask_token_id)[1]
     results = []
     for i in torch.where(input_seq == tokenizer.mask_token_id)[1]:
         logits = token_logits[0, i.item(), :].squeeze()
         prob = logits.softmax(dim=0)
         results.append((prob, logits))
     return results
-
 
 def get_mask_fill_logits(
     sentence,
@@ -35,15 +33,14 @@ def get_mask_fill_logits(
         )
     return outcome
 
-
 def bias_score(
-    sentence: str,
-    gender_words: Iterable[str],
-    word: str,
+    sentence,
+    gender_words,
+    word,
     tokenizer,
     model,
     gender_comes_first=True,
-) -> Dict[str, float]:
+):
     """
     Input a sentence of the form "GGG is XXX"
     XXX is a placeholder for the target word
@@ -53,7 +50,10 @@ def bias_score(
 
     gender_comes_first: whether GGG comes before XXX (TODO: better way of handling this?)
     """
-    # probability of filling [MASK] with "he" vs. "she" when target is "programmer"
+    # Ensure word is a string
+    if not isinstance(word, str):
+        word = str(word)
+
     mw, fw = gender_words
     subject_fill_logits = get_mask_fill_logits(
         sentence.replace("XXX", word).replace("GGG", tokenizer.mask_token),
