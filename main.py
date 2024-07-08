@@ -4,6 +4,7 @@ from medium_sized.intrinsic_bias.similarity_based.ceat import main as ceat
 
 from medium_sized.intrinsic_bias.probability_based.masked_token_metrics.lbps import main as lbps
 from medium_sized.intrinsic_bias.probability_based.masked_token_metrics.cbs import main as cbs
+from medium_sized.intrinsic_bias.probability_based.masked_token_metrics.disco import main as disco
 
 from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.ppl import main as ppl
 from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.aul import main as aul
@@ -48,7 +49,7 @@ if sys.argv[1] == "medium":
 
         elif sys.argv[3] == "probability":
             if sys.argv[4] == "disco":
-                pass
+                disco.run_experiment()
             elif sys.argv[4] == "lbps":
                 lbps.run_experiment()
             elif sys.argv[4] == "cbs":
