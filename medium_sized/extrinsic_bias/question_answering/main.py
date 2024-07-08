@@ -49,8 +49,8 @@ def run_experiment():
             }
             for example in data
         ]
-        io.write_jsonl(new_data, os.path.join(args.data_path, category, "validation.jsonl"))
-        io.write_json({"num_choices": 3}, os.path.join(args.data_path, category, "config.json"))
+        io.write_jsonl(new_data, os.path.join(data_path, category, "validation.jsonl"))
+        io.write_json({"num_choices": 3}, os.path.join(data_path, category, "config.json"))
 
         print("------------Evaluation task------------")
 
