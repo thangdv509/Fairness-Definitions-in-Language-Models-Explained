@@ -10,3 +10,9 @@ data/biasbios/test_cls.npy
 data/biasbios/test.pickle
 data/biasbios/train_cls.npy
 data/biasbios/train.pickle
+data/bbq/train.jsonl
+data/bbq/test.jsonl
+data/bbq/validation.jsonl
+data/bbq/config.jsonl
+checkpoint*
+
