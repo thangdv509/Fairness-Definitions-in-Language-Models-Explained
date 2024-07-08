@@ -72,7 +72,7 @@ def main():
         # gradient_checkpointing=training_args.gradient_checkpointing,
     )
 
-    task = tasks.get_task("data/bbq")
+    task = tasks.get_task("data/bbq/train_dataset")
     dataset_dict = task.get_datasets()
 
     tokenized_dataset_dict = get_tokenized_dataset(

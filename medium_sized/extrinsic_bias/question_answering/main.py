@@ -33,77 +33,79 @@ def run_experiment():
     print("------------Training model------------")
     data_generation.main()
     run_lrqa.main()
-    # data_path = "data/bbq/validation"
+    input_data_path = "data/bbq/input_data"
+    data_path = "data/bbq"
+    for category in CATEGORIES:
+        os.makedirs(os.path.join(data_path, category), exist_ok=True)
+        data = io.read_jsonl(os.path.join(input_data_path, f"{category}.jsonl"))
+        new_data = [
+            {
+                "context": example["context"],
+                "query": " " + example["question"],
+                "option_0": " " + example["ans0"],
+                "option_1": " " + example["ans1"],
+                "option_2": " " + example["ans2"],
+                "label": example["label"],
+            }
+            for example in data
+        ]
+        io.write_jsonl(new_data, os.path.join(args.data_path, category, "validation.jsonl"))
+        io.write_json({"num_choices": 3}, os.path.join(args.data_path, category, "config.json"))
 
-    # data = io.read_jsonl("data/bbq/Gender_identity.jsonl")
-    # new_data = [
-    #     {
-    #         "context": example["context"],
-    #         "query": " " + example["question"],
-    #         "option_0": " " + example["ans0"],
-    #         "option_1": " " + example["ans1"],
-    #         "option_2": " " + example["ans2"],
-    #         "label": example["label"],
-    #     }
-    #     for example in data
-    # ]
-    # io.write_jsonl(new_data, os.path.join(data_path, "validation.jsonl"))
-    # io.write_json({"num_choices": 3}, os.path.join(data_path, "config.json"))
+        print("------------Evaluation task------------")
 
-    print("------------Evaluation task------------")
+        training_args = TrainingArguments(output_dir="data/bbq", per_device_train_batch_size = 4, 
+                                        per_device_eval_batch_size = 4, gradient_checkpointing = True)
+        
+        config = AutoConfig.from_pretrained(
+            "checkpoint-last",
+            cache_dir=None,
+            revision="main",
+        )
+        tokenizer = AutoTokenizer.from_pretrained(
+            "checkpoint-last",
+            cache_dir=None,
+            use_fast=True,
+            revision="main",
+        )
+        adjust_tokenizer(tokenizer)
 
-    training_args = TrainingArguments(output_dir="data/bbq", per_device_train_batch_size = 4, 
-                                      per_device_eval_batch_size = 4, gradient_checkpointing = True)
-    
-    config = AutoConfig.from_pretrained(
-        "checkpoint-last",
-        cache_dir=None,
-        revision="main",
-    )
-    tokenizer = AutoTokenizer.from_pretrained(
-        "checkpoint-last",
-        cache_dir=None,
-        use_fast=True,
-        revision="main",
-    )
-    adjust_tokenizer(tokenizer)
+        task = tasks.get_task(os.path.join(data_path, category))
+        dataset_dict = task.get_datasets()
 
-    task = tasks.get_task("data/bbq/validation")
-    dataset_dict = task.get_datasets()
+        model = AutoModelForMultipleChoice.from_pretrained(
+            "checkpoint-last",
+            from_tf=bool(".ckpt" in "checkpoint-last"),
+            config=config,
+            cache_dir="None",
+            revision="main",
+            torch_dtype=None,
+        )
 
-    model = AutoModelForMultipleChoice.from_pretrained(
-        "checkpoint-last",
-        from_tf=bool(".ckpt" in "checkpoint-last"),
-        config=config,
-        cache_dir="None",
-        revision="main",
-        torch_dtype=None,
-    )
+        tokenized_dataset_dict = get_tokenized_dataset(
+            task=task,
+            dataset_dict=dataset_dict,
+            tokenizer=tokenizer,
+            max_seq_length=256,
+            padding_strategy="max_length",
+            truncation_strategy="only_first",
+            model_mode="mc",
+        )
 
-    tokenized_dataset_dict = get_tokenized_dataset(
-        task=task,
-        dataset_dict=dataset_dict,
-        tokenizer=tokenizer,
-        max_seq_length=256,
-        padding_strategy="max_length",
-        truncation_strategy="only_first",
-        model_mode="mc",
-    )
+        trainer = Trainer(
+            model=model,
+            args=training_args,
+            train_dataset=tokenized_dataset_dict.get("train"),
+            eval_dataset=tokenized_dataset_dict.get("validation"),
+            compute_metrics=task.compute_metrics,
+            tokenizer=tokenizer,
+        )
 
-    trainer = Trainer(
-        model=model,
-        args=training_args,
-        train_dataset=tokenized_dataset_dict.get("train"),
-        eval_dataset=tokenized_dataset_dict.get("validation"),
-        compute_metrics=task.compute_metrics,
-        tokenizer=tokenizer,
-    )
+        print(tokenized_dataset_dict)
 
-    print(tokenized_dataset_dict)
-
-    validation_metrics = trainer.evaluate(eval_dataset=tokenized_dataset_dict["validation"])
-    write_json(validation_metrics, os.path.join("medium_sized/extrinsic_bias/question_answering", "validation_metrics.json"))
-    show_json(validation_metrics)
+        validation_metrics = trainer.evaluate(eval_dataset=tokenized_dataset_dict["validation"])
+        write_json(validation_metrics, os.path.join("medium_sized/extrinsic_bias/question_answering", f"{category}.json"))
+        show_json(validation_metrics)
 
 
 

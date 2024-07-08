@@ -6,7 +6,7 @@ LABEL_TO_ID_DICT = {"A": 0, "B": 1, "C": 2, "D": 3}
 
 
 def main():
-    data_path = "data/bbq"
+    data_path = "data/bbq/train_dataset"
 
     os.makedirs(data_path, exist_ok=True)
     dataset = datasets.load_dataset("race", name="all")
