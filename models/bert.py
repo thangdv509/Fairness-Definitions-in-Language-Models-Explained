@@ -1,7 +1,6 @@
 import torch
 import pytorch_pretrained_bert as bert
 
-
 class BERT_MODEL:
     def __init__(self, version='bert-base-cased'):
         self.tokenizer = bert.BertTokenizer.from_pretrained(version)

@@ -1,9 +1,10 @@
 from openai import OpenAI
 from tqdm import tqdm
+from api_key import OPENAI_KEY
 
 class OPENAIGPT_MODEL:
     def __init__(self):
-        self.client = OpenAI(api_key="")
+        self.client = OpenAI(api_key=OPENAI_KEY)
 
     def ask(self, message): 
         completion = self.client.chat.completions.create( 
