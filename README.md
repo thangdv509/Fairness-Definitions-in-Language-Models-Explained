@@ -18,7 +18,7 @@ OPENAI_KEY = "you openai key" # for OpenAI GPT
 TOGETHERAPI_KEY = "your togetherapi key" # for Llama2 
 ```
 
-## Reproducing The Paper
+## Run Experiments
 
 This section is organized according to the section in our paper. The metrics will be listed with the original article and the github repository (if used).  
 
@@ -84,3 +84,18 @@ $ python main.py medium extrinsic <task_name>
 ```shell script
 $ python main.py large <strategy_name> <experiment_number>
 ```
+
+## Datasets
+
+* [Employee Salary](https://github.com/iPieter/biased-rulers/)
+* [XNLI](https://github.com/jaimeenahn/ethnic_bias)
+* [Crows-Pairs](https://github.com/nyu-mll/crows-pairs)
+* [StereoSet](https://github.com/moinnadeem/StereoSet)
+* [Bias-in-Bios](https://github.com/shauli-ravfogel/nullspace_projection/tree/master)
+* [Bias-NLI](https://github.com/sunipa/On-Measuring-and-Mitigating-Biased-Inferences-of-Word-Embeddings/tree/bert_debias)
+* [BBNLI](https://github.com/feyzaakyurek/bbnli)
+* [BBQ](https://github.com/nyu-mll/BBQ)
+* [MovieLens-1M](https://github.com/agiresearch/UP5)
+* [Natural Questions](https://ai.google.com/research/NaturalQuestions/download)
+* [German Credit](https://github.com/tailequy/fairness_dataset/tree/main)
+* [BiasAsker](https://github.com/yxwan123/BiasAsker)
