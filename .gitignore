@@ -14,5 +14,6 @@ data/bbq/train.jsonl
 data/bbq/test.jsonl
 data/bbq/validation.jsonl
 data/bbq/config.jsonl
+medium_sized/extrinsic_bias/recommendation
 checkpoint*
 

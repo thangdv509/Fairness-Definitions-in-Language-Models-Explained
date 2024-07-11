@@ -10,10 +10,12 @@ from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics
 from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.aul import main as aul
 from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.aula import main as aula
 from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.cat import main as cat
+from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.icat import main as icat
 from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.cps import main as cps
 
 from medium_sized.extrinsic_bias.classification import main as classification
 from medium_sized.extrinsic_bias.question_answering import main as qa
+from medium_sized.extrinsic_bias.recommendation import main as recommendation
 
 from large_sized.demographic_representation.experiment1 import main as dr_exp1
 from large_sized.demographic_representation.experiment2 import main as dr_exp2
@@ -60,6 +62,8 @@ if sys.argv[1] == "medium":
                 cps.run_experiment()
             elif sys.argv[4] == "cat":
                 cat.run_experiment()
+            elif sys.argv[4] == "icat":
+                icat.run_experiment()
             elif sys.argv[4] == "aul":
                 aul.run_experiment()
             elif sys.argv[4] == "aula":
@@ -75,6 +79,8 @@ if sys.argv[1] == "medium":
             classification.run_experiment()
         if sys.argv[3] == "qa":
             qa.run_experiment()
+        if sys.argv[3] == "recommendation":
+            recommendation.train()
     
     else:
         print_invalid_command()

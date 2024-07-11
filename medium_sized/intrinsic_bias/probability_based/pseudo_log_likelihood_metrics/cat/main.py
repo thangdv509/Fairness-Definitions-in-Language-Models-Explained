@@ -5,18 +5,19 @@ import pandas as pd
 from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.data import *
 from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.evaluate import *
 
-def calculate_cat(model, token_ids, spans, mask_id, log_softmax):
+def calculate_cat(model, token_ids, spans, mask_id, log_softmax, device):
     '''
     Given token ids of a sequence, return the averaged log probability of
-    masked diffirent tokens between sequence pair (CAT).
+    masked different tokens between sequence pair (CAT).
     '''
+    token_ids = token_ids.to(device)
     masked_token_ids = token_ids.clone()
     masked_token_ids[:, spans] = mask_id
-    hidden_states = model(masked_token_ids)
-    hidden_states = hidden_states[0].squeeze(0)
-    token_ids = token_ids.view(-1)[spans]
+
+    hidden_states = model(masked_token_ids)[0].squeeze(0)
     log_probs = log_softmax(hidden_states)[spans]
-    span_log_probs = log_probs[:,token_ids]
+    token_ids = token_ids.view(-1)[spans]
+    span_log_probs = log_probs[:, token_ids]
     score = torch.mean(span_log_probs).item()
 
     if log_probs.size(0) != 0:
@@ -29,6 +30,10 @@ def calculate_cat(model, token_ids, spans, mask_id, log_softmax):
 def run_experiment():
     print("------------Medium-sized LMs: Intrinsic bias - Probability-based bias - CAT------------")
     tokenizer, model = load_tokenizer_and_model()
+
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model.to(device)
+
     bias_score_list = []
     bias_type_list = []
     dataset_list = []
@@ -54,14 +59,14 @@ def run_experiment():
             count[bias_type] += 1
 
             pro_sentence = input['stereotype']
-            pro_token_ids = tokenizer.encode(pro_sentence, return_tensors='pt')
+            pro_token_ids = tokenizer.encode(pro_sentence, return_tensors='pt').to(device)
             anti_sentence = input['anti-stereotype']
-            anti_token_ids = tokenizer.encode(anti_sentence, return_tensors='pt')
+            anti_token_ids = tokenizer.encode(anti_sentence, return_tensors='pt').to(device)
 
             with torch.no_grad():
                 pro_spans, anti_spans = get_span(pro_token_ids[0], anti_token_ids[0], 'diff')
-                pro_score, anti_ranks = calculate_cat(model, pro_token_ids, pro_spans, mask_id, log_softmax)
-                anti_score, pro_ranks = calculate_cat(model, anti_token_ids, anti_spans, mask_id, log_softmax)
+                pro_score, pro_ranks = calculate_cat(model, pro_token_ids, pro_spans, mask_id, log_softmax, device)
+                anti_score, anti_ranks = calculate_cat(model, anti_token_ids, anti_spans, mask_id, log_softmax, device)
                 
             all_ranks += anti_ranks
             all_ranks += pro_ranks
@@ -70,14 +75,14 @@ def run_experiment():
                 stereo_score += 1
                 scores[bias_type] += 1
 
-        bias_score = round((stereo_score / total_score) * 100, 2)
+        bias_score = (stereo_score / total_score) * 100
 
         bias_score_list.append(bias_score)
         bias_type_list.append("Bias score")
         dataset_list.append(dataset_name)
 
         for bias_type, score in sorted(scores.items()):
-            bias_score = round((score / count[bias_type]) * 100, 2)
+            bias_score = (score / count[bias_type]) * 100
             bias_score_list.append(bias_score)
             bias_type_list.append(bias_type)
             dataset_list.append(dataset_name)

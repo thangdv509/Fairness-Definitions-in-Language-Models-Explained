@@ -6,10 +6,11 @@ import pandas as pd
 from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.data import *
 from medium_sized.intrinsic_bias.probability_based.pseudo_log_likelihood_metrics.evaluate import *
 
-def calculate_ppl(model, token_ids, log_softmax):
+def calculate_ppl(model, token_ids, log_softmax, device):
     '''
     Given token ids of a sequence, return the perplexity of the sequence.
     '''
+    token_ids = token_ids.to(device)
     output = model(token_ids)
     logits = output.logits.squeeze(0)
     log_probs = log_softmax(logits)
@@ -33,6 +34,9 @@ def calculate_ppl(model, token_ids, log_softmax):
 def run_experiment():
     print("------------Medium-sized LMs: Intrinsic bias - Probability-based bias - PPL------------")
     tokenizer, model = load_tokenizer_and_model()
+
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model.to(device)
 
     bias_score_list = []
     bias_type_list = []
@@ -58,13 +62,13 @@ def run_experiment():
             count[bias_type] += 1
 
             pro_sentence = input['stereotype']
-            pro_token_ids = tokenizer.encode(pro_sentence, return_tensors='pt')
+            pro_token_ids = tokenizer.encode(pro_sentence, return_tensors='pt').to(device)
             anti_sentence = input['anti-stereotype']
-            anti_token_ids = tokenizer.encode(anti_sentence, return_tensors='pt')
+            anti_token_ids = tokenizer.encode(anti_sentence, return_tensors='pt').to(device)
 
             with torch.no_grad():
-                pro_score, pro_ranks = calculate_ppl(model, pro_token_ids, log_softmax)
-                anti_score, anti_ranks = calculate_ppl(model, anti_token_ids, log_softmax)
+                pro_score, pro_ranks = calculate_ppl(model, pro_token_ids, log_softmax, device)
+                anti_score, anti_ranks = calculate_ppl(model, anti_token_ids, log_softmax, device)
                 
             all_ranks += anti_ranks
             all_ranks += pro_ranks
@@ -73,14 +77,14 @@ def run_experiment():
                 stereo_score += 1
                 scores[bias_type] += 1
 
-        bias_score = round((stereo_score / total_score) * 100, 2)
+        bias_score = (stereo_score / total_score) * 100
 
         bias_score_list.append(bias_score)
         bias_type_list.append("Bias score")
         dataset_list.append(dataset_name)
 
         for bias_type, score in sorted(scores.items()):
-            bias_score = round((score / count[bias_type]) * 100, 2)
+            bias_score = (score / count[bias_type]) * 100
             bias_score_list.append(bias_score)
             bias_type_list.append(bias_type)
             dataset_list.append(dataset_name)
@@ -99,3 +103,4 @@ def run_experiment():
     })
 
     df.to_csv("medium_sized/intrinsic_bias/probability_based/pseudo_log_likelihood_metrics/ppl/result.csv", index=False)
+
